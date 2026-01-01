@@ -10,8 +10,8 @@ RUN apt update && apt dist-upgrade -y
 
 # Install build tools and X11 libraries
 # Install sudo too, just so sudo commands don't fail in the container
-RUN apt install -y sudo git make pkg-config cmake autoconf flex bison help2man
-RUN apt install -y build-essential python3-full python3-pip python-is-python3 libx11-dev libxext-dev libgl1 libglx-mesa0 mesa-common-dev libwayland-dev
+RUN apt install -y sudo git make pkg-config cmake autoconf flex bison libfl-dev help2man
+RUN apt install -y build-essential python3-full python3-pip python-is-python3 libx11-dev libxext-dev libgl1 libglx-mesa0 mesa-common-dev libwayland-dev libgl1-mesa-dev
 
 # Build latest verilator from source, to make sure it's new enough
 RUN git clone https://github.com/verilator/verilator && cd verilator && autoconf && ./configure && make -j `nproc` && sudo make install && cd ..

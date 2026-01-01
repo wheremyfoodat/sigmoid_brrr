@@ -19,7 +19,7 @@ jobs:
     - name: Install Verilator and X11 packages
       run: |
         sudo apt-get install build-essential make pkg-config cmake autoconf flex bison help2man libfl-dev
-        sudo apt-get install libx11-dev libxext-dev libgl1 libglx-mesa0 mesa-common-dev libwayland-dev
+        sudo apt-get install libx11-dev libxext-dev libgl1 libglx-mesa0 mesa-common-dev libwayland-dev libgl1-mesa-dev
         git clone https://github.com/verilator/verilator && cd verilator && autoconf && ./configure && make -j `nproc` && sudo make install && cd ..
 
     - name: Configure CMake
