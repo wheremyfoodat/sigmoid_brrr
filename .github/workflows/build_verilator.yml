@@ -48,15 +48,15 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-  build-windows-docker:
-    runs-on: windows-latest
+  build-macos-docker:
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v4
 
     - name: Build Docker image
       run: |
-        docker build --platform linux/amd64 --tag sigmoid_image .
+        docker build --tag sigmoid_image .
 
     - name: Run Docker container
       run: |
