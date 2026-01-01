@@ -18,6 +18,7 @@ jobs:
 
     - name: Build Docker image
       run: |
+        setx DOCKER_DEFAULT_PLATFORM linux/amd64
         docker build --tag sigmoid_image .
 
     - name: Run Docker container
