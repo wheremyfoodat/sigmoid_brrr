@@ -48,11 +48,14 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-  build-macos-docker:
-    runs-on: macos-latest
+  build-linux-docker:
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Set up Docker
+      uses: docker/setup-docker-action@v4
 
     - name: Build Docker image
       run: |
