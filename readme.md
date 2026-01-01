@@ -10,6 +10,24 @@ Our design is capable of reaching an fmax around 113MHz when targetting a ZCU106
 ![RTL design timing](notebooks/img/vivado_timing.png)
 ![Vivado elaborated design](notebooks/img/vivado_elaborated.png)
 
+### Building the Verilator testbench
+Building the testbench requires
+- A C++20 compiler with std::format support
+- Verilator to be installed
+
+Navigate to sigmoid_rtl/src/cpp_testbench and run the following commands
+```sh
+cmake -B build
+cmake --build build
+```
+
+The executable will be located in `./build/sigmoid`
+
+### Building the design and SystemVerilog testbenches in Vivado
+For the time being, there's no tcl script to initialize the project automatically. Thus, you'll need to load the design (sigmoid_rtl/src/rtl), simulation (sigmoid_rtl/src/simulation) and constraint files into the corresponding source categories in Vivado.
+
+Select `sigmoid_pipelined` as the top module in the design section, and one of the testbenches as the top testbench. You should then be able to run simulation, synthesis and implementation easily from the Vivado UI.
+
 ### Project structure:
 - notebooks/:
   - Jupyter Notebooks explaining the methods explored in this project
