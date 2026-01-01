@@ -1,10 +1,3 @@
-# npm files and folders
-**/node_modules/
-
-# App distribution folder
-dist/
-front-end/dist/
-
 # Visual Studio files
 *.rsuser
 *.suo
@@ -71,13 +64,12 @@ imgui.ini
 *.swp
 *.xpr
 *.xrpt
-*.xml
-*_p.*
-*_a.*
-*_b.*
 *.bin
 *.bit
 *.cfg
 *.rpt
 *.tcl
 *.prj
+
+# Exempt the 3rd party dependency folder from our top-level gitignore
+!sigmoid_rtl/src/cpp_testbench/third_party/
