@@ -179,8 +179,8 @@ void UI::drawStage4(Sigmoid* top) {
 
 std::pair<SDL_Window*, SDL_GLContext> UI::init() {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) != 0) {
-        printf("Error: %s\n", SDL_GetError());
-        abort();
+        fmt::print("Error: {}\n", SDL_GetError());
+        std::abort();
     }
 
     // Decide GL+GLSL versions
@@ -225,19 +225,19 @@ std::pair<SDL_Window*, SDL_GLContext> UI::init() {
     );
 
     if (window == nullptr) {
-        printf("Error: SDL_CreateWindow(): %s\n", SDL_GetError());
-        abort();
+        fmt::print("Error: SDL_CreateWindow(): {}\n", SDL_GetError());
+        std::abort();
     }
 
     SDL_GLContext glContext = SDL_GL_CreateContext(window);
     if (glContext == nullptr) {
-        printf("Error: SDL_GL_CreateContext(): %s\n", SDL_GetError());
-        abort();
+        fmt::print("Error: SDL_GL_CreateContext(): {}\n", SDL_GetError());
+        std::abort();
     }
 
     if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(SDL_GL_GetProcAddress))) {
-        printf("OpenGL initialization failed\n");
-        abort();
+        fmt::print("OpenGL initialization failed\n");
+        std::abort();
     }
 
     SDL_GL_MakeCurrent(window, glContext);
