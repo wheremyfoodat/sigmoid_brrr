@@ -31,8 +31,10 @@ set(THIRD_PARTY_SOURCE_FILES
 add_executable(sigmoid ${TESTBENCH_SOURCE} ${THIRD_PARTY_SOURCE_FILES})
 
 target_include_directories(sigmoid PRIVATE include)
+target_include_directories(sigmoid PRIVATE ${FMT_INCLUDE_DIR})
 target_include_directories(sigmoid PRIVATE third_party third_party/imgui third_party/imgui/backends)
-target_link_libraries(sigmoid PRIVATE glad)
+
+target_link_libraries(sigmoid PRIVATE fmt::fmt glad)
 
 if (USE_SYSTEM_SDL2)
     find_package(SDL2 CONFIG REQUIRED)
@@ -46,6 +48,7 @@ else()
 endif()
 
 add_subdirectory(third_party/glad)
+add_subdirectory(third_party/fmt)
 
 # Compilation order generated automatically by Vivado
 set(RTL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../rtl)

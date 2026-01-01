@@ -16,14 +16,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up GCC
-      uses: egor-tensin/setup-gcc@v2
-      with:
-        version: latest
-        platform: x64
-  
     - name: Install Verilator and X11 packages
-      run: sudo apt-get install verilator libx11-dev libxext-dev libgl1 libglx-mesa0 mesa-common-dev libwayland-dev
+      run: |
+        sudo apt-get install build-essential make pkg-config cmake autoconf flex bison help2man
+        sudo apt-get install libx11-dev libxext-dev libgl1 libglx-mesa0 mesa-common-dev libwayland-dev
+        git clone https://github.com/verilator/verilator && cd verilator && autoconf && ./configure && make -j `nproc` && sudo make install && cd ..
 
     - name: Configure CMake
       run: |

@@ -1,6 +1,7 @@
 #include "ui.hpp"
 
 #include <SDL.h>
+#include <fmt/format.h>
 #include <glad/gl.h>
 
 #include <cstdlib>
@@ -23,7 +24,7 @@ void UI::drawTopModule(Sigmoid* top) {
     ImGui::Begin("Top Module");
 
     static char dataInStr[128] = "-0.5";
-    std::string dataOutStr = std::format("{:04X} ({:0.4f})", top->data_out, bf16::toFloat(top->data_out));
+    std::string dataOutStr = fmt::format("{:04X} ({:0.4f})", top->data_out, bf16::toFloat(top->data_out));
 
     ImGui::InputText("data_in", dataInStr, IM_COUNTOF(dataInStr));
     auto dataIn = bf16::fromString(dataInStr);
@@ -84,7 +85,7 @@ void UI::drawStage0(Sigmoid* top) {
     const auto& valid = GET_FIELD(stage, valid);
     const auto& is_negative = GET_FIELD(stage, is_negative);
     const auto& x_abs = GET_FIELD(stage, x_abs);
-    std::string x_abs_str = std::format("{:04X} ({:0.4f})", x_abs, bf16::toFloat(x_abs));
+    std::string x_abs_str = fmt::format("{:04X} ({:0.4f})", x_abs, bf16::toFloat(x_abs));
 
     CHECKBOX("valid##0", valid);
     CHECKBOX("is_negative##0", is_negative);
@@ -103,10 +104,10 @@ void UI::drawStage1(Sigmoid* top) {
     const auto& a1 = GET_FIELD(stage, a1);
     const auto& a2 = GET_FIELD(stage, a2);
 
-    std::string x_offset_str = std::format("{:04X} ({:0.4f})", x_offset, bf16::toFloat(x_offset));
-    std::string a0_str = std::format("{:04X} ({:0.4f})", a0, bf16::toFloat(a0));
-    std::string a1_str = std::format("{:04X} ({:0.4f})", a1, bf16::toFloat(a1));
-    std::string a2_str = std::format("{:04X} ({:0.4f})", a2, bf16::toFloat(a2));
+    std::string x_offset_str = fmt::format("{:04X} ({:0.4f})", x_offset, bf16::toFloat(x_offset));
+    std::string a0_str = fmt::format("{:04X} ({:0.4f})", a0, bf16::toFloat(a0));
+    std::string a1_str = fmt::format("{:04X} ({:0.4f})", a1, bf16::toFloat(a1));
+    std::string a2_str = fmt::format("{:04X} ({:0.4f})", a2, bf16::toFloat(a2));
 
     CHECKBOX("valid##1", valid);
     CHECKBOX("is_negative##1", is_negative);
@@ -129,10 +130,10 @@ void UI::drawStage2(Sigmoid* top) {
     const auto& mul_a1_x = GET_FIELD(stage, mul_a1_x);
     const auto& a2 = GET_FIELD(stage, a2);
 
-    std::string x_squared_str = std::format("{:04X} ({:0.4f})", x_squared, bf16::toFloat(x_squared));
-    std::string a0_str = std::format("{:04X} ({:0.4f})", a0, bf16::toFloat(a0));
-    std::string mul_a1_x_str = std::format("{:04X} ({:0.4f})", mul_a1_x, bf16::toFloat(mul_a1_x));
-    std::string a2_str = std::format("{:04X} ({:0.4f})", a2, bf16::toFloat(a2));
+    std::string x_squared_str = fmt::format("{:04X} ({:0.4f})", x_squared, bf16::toFloat(x_squared));
+    std::string a0_str = fmt::format("{:04X} ({:0.4f})", a0, bf16::toFloat(a0));
+    std::string mul_a1_x_str = fmt::format("{:04X} ({:0.4f})", mul_a1_x, bf16::toFloat(mul_a1_x));
+    std::string a2_str = fmt::format("{:04X} ({:0.4f})", a2, bf16::toFloat(a2));
 
     CHECKBOX("valid##2", valid);
     CHECKBOX("is_negative##2", is_negative);
@@ -153,8 +154,8 @@ void UI::drawStage3(Sigmoid* top) {
     const auto& mul_a2_x2 = GET_FIELD(stage, mul_a2_x2);
     const auto& add_a0_a1 = GET_FIELD(stage, add_a0_a1);
 
-    std::string mul_a2_x2_str = std::format("{:04X} ({:0.4f})", mul_a2_x2, bf16::toFloat(mul_a2_x2));
-    std::string add_a0_a1_str = std::format("{:04X} ({:0.4f})", add_a0_a1, bf16::toFloat(add_a0_a1));
+    std::string mul_a2_x2_str = fmt::format("{:04X} ({:0.4f})", mul_a2_x2, bf16::toFloat(mul_a2_x2));
+    std::string add_a0_a1_str = fmt::format("{:04X} ({:0.4f})", add_a0_a1, bf16::toFloat(add_a0_a1));
 
     CHECKBOX("valid##3", valid);
     CHECKBOX("is_negative##3", is_negative);
@@ -170,7 +171,7 @@ void UI::drawStage4(Sigmoid* top) {
     const auto& valid = GET_FIELD(stage, valid);
     const auto& result = GET_FIELD(stage, result);
 
-    std::string result_str = std::format("{:04X} ({:0.4f})", result, bf16::toFloat(result));
+    std::string result_str = fmt::format("{:04X} ({:0.4f})", result, bf16::toFloat(result));
 
     CHECKBOX("valid##4", valid);
     ImGui::InputText("result##4", (char*)result_str.c_str(), result_str.size());
