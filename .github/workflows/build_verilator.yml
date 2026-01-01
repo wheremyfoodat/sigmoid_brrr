@@ -1,0 +1,34 @@
+name: Build Verilator testbench
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up GCC
+      uses: egor-tensin/setup-gcc@v2
+      with:
+        version: latest
+        platform: x64
+  
+    - name: Install Verilator and X11 packages
+      run: sudo apt-get install verilator libx11-dev libxext-dev libgl1 libglx-mesa0 mesa-common-dev libwayland-dev
+
+    - name: Configure CMake
+      run: |
+        cd sigmoid_rtl/src/cpp_testbench
+        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
