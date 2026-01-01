@@ -10,7 +10,51 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  build-windows-docker:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build Docker image
+      run: |
+        docker build --tag sigmoid_image .
+
+    - name: Run Docker container
+      run: |
+        # Mount the github workspace as a Docker volume so that we can get the latest version of the repo into the container
+        docker run --rm \
+          -v ${{github.workspace}}:/workspace \
+          -w /workspace \
+          sigmoid_image \
+          bash -c "
+            cd sigmoid_rtl/src/cpp_testbench && \
+            cmake -B /workspace/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} && \
+            cmake --build /workspace/build --config ${{env.BUILD_TYPE}}
+          "
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Verilator
+      run: |
+        brew install verilator
+
+    - name: Configure CMake
+      run: |
+        cd sigmoid_rtl/src/cpp_testbench
+        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+  build-linux:
     runs-on: ubuntu-latest
 
     steps:
