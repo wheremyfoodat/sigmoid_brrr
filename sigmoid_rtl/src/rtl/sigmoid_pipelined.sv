@@ -101,7 +101,7 @@ module sigmoid_pipelined (
     logic [15:0] offset; // Offset to subtract from x in polynomial calculation
 
     // Signals to check whether |x| < less than 1, 2, ..., 6
-    wire [15:0] cmp_values [5:0] = { SIX, FIVE, FOUR, THREE, TWO, ONE }; // Indices are reversed, so ONE is at index 0 and so on
+    localparam [15:0] cmp_values [5:0] = { SIX, FIVE, FOUR, THREE, TWO, ONE }; // Indices are reversed, so ONE is at index 0 and so on
     wire [5:0] less_than;
 
     // Generate comparators    
