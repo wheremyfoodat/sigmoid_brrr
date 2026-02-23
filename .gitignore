@@ -70,6 +70,8 @@ imgui.ini
 *.rpt
 *.tcl
 *.prj
+# Allow exported .tcl's to be uploaded  
+!sigmoid_rtl/src/bd/*.tcl
 
 # Exempt the 3rd party dependency folder from our top-level gitignore
 !sigmoid_rtl/src/cpp_testbench/third_party/
